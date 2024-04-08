@@ -27,7 +27,7 @@ const LoginPage = () => {
       if (res.data) {
         toast.success(res.message)
         storeUserInfo({ accessToken: res?.data?.accessToken })
-        router.push("/")
+        router.push("/dashboard")
       }
        else{
         const errorMassage = res.message
