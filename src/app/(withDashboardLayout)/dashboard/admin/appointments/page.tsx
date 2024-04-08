@@ -4,7 +4,7 @@ const AppointmentsPage = () => {
   return (
     <div>
       AppointmentsPage
-    </div>
+    </div> ...
   );
 };
 
