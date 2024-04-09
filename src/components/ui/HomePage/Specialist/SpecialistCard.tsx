@@ -8,11 +8,10 @@ const SpecialistCard = async() => {
   })
   const {data:specialties} = await res.json()
   console.log(specialties,"asseeeeee");
-
   return (
     <Stack direction="row" gap={4} mt={5}>
     {
-     specialties?.map((item:any )=>(
+     specialties?.slice(0,6).map((item:any )=>(
       <Box key={item.id} sx={{
         flex:1,
         width:"150px",
