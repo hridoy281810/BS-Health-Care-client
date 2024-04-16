@@ -7,6 +7,19 @@ export type IMeta = {
     limit:number;
     total:number
 }
+export type TResponse = {
+    data:any
+    meta?:IMeta
+}
+export type TErrorResponse={
+    statusCode:number
+    message: string
+    errorMessage:TErrorMessage[]
+}
+export type TErrorMessage = {
+    path:string | number
+    message:string
+}
 export type TChildrenProps = {
     children: React.ReactNode
 }
@@ -18,3 +31,5 @@ export interface ISidebarItem {
     icon?:OverridableComponent<SvgIconTypeMap<{},"svg">&{muiName:string}>,
     child?:ISidebarItem[]
 }
+
+export const Gender = ["MALE","FEMALE"];
