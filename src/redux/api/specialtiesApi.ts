@@ -1,5 +1,4 @@
 import { baseApi } from '@/redux/api/baseApi';
-import React from 'react';
 import { tagTypes } from '../tag-types';
 
 const specialtiesApi = baseApi.injectEndpoints({

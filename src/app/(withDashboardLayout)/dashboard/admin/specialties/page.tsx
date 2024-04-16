@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useDeleteSpecialtyMutation, useGetSpecialtyQuery } from '@/redux/api/specialtiesApi';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Image from 'next/image';
-import DeleteIcon from "@mui/icons-material/Delete"
+import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from 'sonner';
 const SpecialtiesPage = () => {
   const [deleteSpecialty] = useDeleteSpecialtyMutation()
@@ -38,9 +38,7 @@ const SpecialtiesPage = () => {
      <IconButton onClick={()=> handleDelete(row?.id)} aria-label='delete'>
       <DeleteIcon />
      </IconButton>
-    )
-  
-    }
+    )}
    },
   ];
   return (

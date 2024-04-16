@@ -31,3 +31,5 @@ export interface ISidebarItem {
     icon?:OverridableComponent<SvgIconTypeMap<{},"svg">&{muiName:string}>,
     child?:ISidebarItem[]
 }
+
+export const Gender = ["MALE","FEMALE"];
