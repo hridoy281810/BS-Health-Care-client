@@ -23,7 +23,12 @@ const Footer = () => {
    <Image src={twitter} width={30} height={30}  alt="facebook"/>
    <Image src={linkedin} width={30} height={30}  alt="facebook"/>
    </Stack>
-   <div className="border-b-[1px] border-dashed"></div>
+   {/* <div className="border-b-[1px] border-dashed"></div> */}
+   <Box sx={{
+    border:"1px dashed lightgray"
+   }}>
+
+   </Box>
    <Stack direction="row" justifyContent="space-between" alignItems="center" gap={2} py={3}>
     <Typography color="#fff" component='p' >
         &copy;2024 bs HealthCare. All Rights Reserved.

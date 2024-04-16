@@ -46,7 +46,7 @@ const RegisterPage = () => {
         const result = await userLogin({ password: values.password, email: values.patient.email })
         if (result.data.accessToken) {
           storeUserInfo({ accessToken: result?.data?.accessToken })
-          router.push("/")
+          router.push("/dashboard")
         }
       } else {
         toast.error(res.message)
@@ -117,7 +117,7 @@ const RegisterPage = () => {
               </Grid>
               <Button type='submit' sx={{ my: 2 }} fullWidth={true}>Register</Button>
               <Typography component="p" fontWeight={300} >
-                Do you already have an account? <Link href="/login" className='text-[#1586fd]'>Login</Link>
+                Do you already have an account? <Link style={{color:"#1586fd"}} href="/login" >Login</Link>
               </Typography>
             </BSForm>
           </Box>
