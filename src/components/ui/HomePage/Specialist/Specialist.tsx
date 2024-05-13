@@ -1,8 +1,8 @@
 // "use client"
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import SpecialistCard from "./SpecialistCard";
 
-const Specialist =async() => {
+const Specialist =() => {
 
   return (
  <>

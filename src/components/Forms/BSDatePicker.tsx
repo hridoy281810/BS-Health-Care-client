@@ -13,9 +13,7 @@ type TDatePickerProps = {
     size?:"small" | "medium"
     fullWidth?: boolean
     sx?:SxProps
-    required?:boolean,
-
-    
+    required?:boolean, 
 }
 const BSDatePicker=  ({name,label,size="small",fullWidth=true,sx,required}:TDatePickerProps)=>  {
     const {control,formState} = useFormContext()

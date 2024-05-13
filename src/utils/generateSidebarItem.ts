@@ -9,8 +9,16 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ReviewsIcon from '@mui/icons-material/Reviews';
 import NoteIcon from '@mui/icons-material/Note';
 import PaymentIcon from '@mui/icons-material/Payment';
+import PersonIcon from '@mui/icons-material/Person';
 export const generateSidebarItem = (role:TUserRole):ISidebarItem[]=>{
     const roleMenus:ISidebarItem[] =[]
+    const defaultMenus =[
+        {
+            title: "Profile",
+            path: `${role}/profile`,
+            icon: PersonIcon
+        }
+    ]
     switch(role){
         case USER_ROLE.SUPPER_ADMIN:
             roleMenus.push(
@@ -104,7 +112,7 @@ export const generateSidebarItem = (role:TUserRole):ISidebarItem[]=>{
         
     }
 
-    return [...roleMenus];
+    return [...roleMenus,...defaultMenus];
 }
 
 

@@ -11,18 +11,22 @@ type TBSFormProps={
 } & TFormResolver
 const BSForm = ({children,onSubmit,resolver,defaultValues}:TBSFormProps) => {
    const formConfig:TFormResolver = {};
-   if(resolver){
-    formConfig["resolver"] = resolver
-   }
-   if(defaultValues){
-    formConfig["defaultValues"] =   defaultValues
-   }
+
+   if (resolver) {
+    formConfig["resolver"] = resolver;
+  }
+
+  if (defaultValues) {
+    formConfig["defaultValues"] = defaultValues;
+  }
+
     const methods = useForm(formConfig)
     const {handleSubmit,reset} = methods
     const submit:SubmitHandler<FieldValues> = (data) =>{
         onSubmit(data)
         reset()
     }
+
   return (
     <FormProvider {...methods}>
     <form onSubmit={handleSubmit(submit)}>
