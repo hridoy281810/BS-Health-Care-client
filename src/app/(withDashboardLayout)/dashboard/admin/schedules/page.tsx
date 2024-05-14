@@ -9,10 +9,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import { dateFormatter } from '@/utils/DateFormatter';
 import dayjs from 'dayjs';
+import { useDeleteDoctorScheduleMutation } from '@/redux/api/doctorScheduleApi';
 const SchedulesPage = () => {
   const [allSchedule,setAllSchedule] = useState<any>([])
   const {data,isLoading} = useGetAllSchedulesQuery({})
-  // console.log(data);
+  console.log(data,'doctor data');
   
   const schedules = data?.schedules
   useEffect(()=>{
@@ -28,6 +29,8 @@ const updateData =schedules?.map((schedule)=> {
 setAllSchedule(updateData);
   },[schedules])
   const [deleteSchedule] = useDeleteScheduleMutation()
+  const [deleteDoctorSchedule] = useDeleteDoctorScheduleMutation()
+
   const [isModalOpen,setISModalOpen] = useState<boolean>(false)
   const columns: GridColDef[] = [
     { field: 'startDate', headerName: 'Start Date', flex:1},
@@ -37,8 +40,8 @@ setAllSchedule(updateData);
     { field: 'id', headerName: 'Action', flex:1,headerAlign:"center",align:"center", renderCell:({row})=>{
   const handleDelete = async(id:string)=>{
    try{
-      const res = await deleteSchedule(id).unwrap();
-     console.log('delete data',res);
+      const res = await deleteDoctorSchedule(id).unwrap();
+    //  console.log('delete data',res);
      if(res?.id){
       toast.success("Schedule deleted successfully")
      }

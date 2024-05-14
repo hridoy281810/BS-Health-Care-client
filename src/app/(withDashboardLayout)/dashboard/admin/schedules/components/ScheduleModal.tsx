@@ -13,7 +13,7 @@ import { timeFormatter } from '@/utils/TimeFormatter';
 
 const ScheduleModal =({open,setOpen}:TProps) => {
     const [createSchedule,{data}] = useCreateScheduleMutation()
-    console.log("data",data);
+    // console.log("data",data);
     
    const handleFormSubmit = async(values:FieldValues)=>{
        values.startDate = dateFormatter(values.startDate)
