@@ -2,6 +2,8 @@ import { jwtDecode } from 'jwt-decode';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+type Role = keyof typeof roleBasePrivateRoutes;
+const AuthRoutes = ['/login','/register']
  const commonPrivateRoutes = ["/dashboard", "/dashboard/change-password"];
  const roleBasePrivateRoutes = {
     PATIENT: [/^\/dashboard\/patient/],
@@ -13,8 +15,12 @@ import type { NextRequest } from 'next/server'
 export function middleware(request: NextRequest) {
     const {pathname} = request.nextUrl;
 const accessToken = cookies().get("accessToken")?.value;
+console.log(accessToken,"======================================================")
    if(!accessToken){
-       return NextResponse.redirect(new URL('/login', request.url))
+        if(AuthRoutes.includes(pathname)){
+            return NextResponse.next()
+        }
+            return NextResponse.redirect(new URL('/login', request.url))
     }
     if(accessToken && commonPrivateRoutes.includes(pathname)){
        return NextResponse.next()
@@ -24,9 +30,9 @@ const accessToken = cookies().get("accessToken")?.value;
         decodedUser = jwtDecode(accessToken) as any
     }
     const role = decodedUser?.role;
-    console.log({role,pathname},"================================================")
-    if(role && roleBasePrivateRoutes[role as keyof typeof roleBasePrivateRoutes]){
-        const routes = roleBasePrivateRoutes[role as keyof typeof roleBasePrivateRoutes];
+
+    if(role && roleBasePrivateRoutes[role as Role]){
+        const routes = roleBasePrivateRoutes[role as Role];
        if( routes.some((route) => pathname.match(route))){
         return NextResponse.next()
        }
@@ -45,5 +51,5 @@ const accessToken = cookies().get("accessToken")?.value;
  
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: '/dashboard/:page*',
+  matcher: ['/login','/register','/dashboard/:page*'],
 }
