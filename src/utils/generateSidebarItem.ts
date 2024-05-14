@@ -10,6 +10,7 @@ import ReviewsIcon from '@mui/icons-material/Reviews';
 import NoteIcon from '@mui/icons-material/Note';
 import PaymentIcon from '@mui/icons-material/Payment';
 import PersonIcon from '@mui/icons-material/Person';
+import KeyIcon from '@mui/icons-material/Key';
 export const generateSidebarItem = (role:TUserRole):ISidebarItem[]=>{
     const roleMenus:ISidebarItem[] =[]
     const defaultMenus =[
@@ -17,7 +18,12 @@ export const generateSidebarItem = (role:TUserRole):ISidebarItem[]=>{
             title: "Profile",
             path: `${role}/profile`,
             icon: PersonIcon
-        }
+        },
+        {
+            title: "Change Password",
+            path: 'change-password',
+            icon: KeyIcon 
+        },
     ]
     switch(role){
         case USER_ROLE.SUPPER_ADMIN:

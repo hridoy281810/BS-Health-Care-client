@@ -7,7 +7,7 @@ const AuthRoutes = ['/login','/register']
  const commonPrivateRoutes = ["/dashboard", "/dashboard/change-password"];
  const roleBasePrivateRoutes = {
     PATIENT: [/^\/dashboard\/patient/],
-    DOCTOR: [/^\/dashboard\/doctor/],
+    DOCTOR: [/^\/dashboard\/doctor/], 
     ADMIN: [/^\/dashboard\/admin/],
     SUPPER_ADMIN: [/^\/dashboard\/supper-admin/],
  }

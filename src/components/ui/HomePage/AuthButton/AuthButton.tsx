@@ -13,7 +13,6 @@ const AuthButton = () => {
     const handleLogOut = ()=>{
       logoutUser(router)
     }
-  
   return (
     <>
 {  
