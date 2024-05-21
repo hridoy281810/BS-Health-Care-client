@@ -15,7 +15,7 @@ const AuthRoutes = ['/login','/register']
 export function middleware(request: NextRequest) {
     const {pathname} = request.nextUrl;
 const accessToken = cookies().get("accessToken")?.value;
-console.log(accessToken,"======================================================")
+console.log(accessToken,"=======================================")
    if(!accessToken){
         if(AuthRoutes.includes(pathname)){
             return NextResponse.next()
