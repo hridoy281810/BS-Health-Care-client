@@ -1,8 +1,9 @@
 // "use server"
 import { Box, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
+import Link from 'next/link';
 const SpecialistCard = async() => {
-  const res =await fetch('http://localhost:5000/api/v1/specialties',{
+  const res =await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/specialties`,{
     next:{
       revalidate:30
     }
@@ -31,8 +32,8 @@ const SpecialistCard = async() => {
           padding:"40px 10px",
           borderRadius:"10px",
         }
-    
-      }} >
+     
+      }} component={Link} href={ `/doctors?specialties=${item?.title}`} >
       <Image src={item.icon} alt="speciality icon" width={100} height={100} />
       <Box>
       <Typography mt={2} component={"p"} fontWeight={300} fontSize={18}>{item.title}</Typography>

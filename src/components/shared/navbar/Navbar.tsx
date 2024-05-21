@@ -12,30 +12,39 @@ const router = useRouter()
     logoutUser(router)
   }
   return (
-    <Container>
+ <Box sx={{
+  backgroundColor:"primary.main" 
+ }}>
+     <Container>
     <Stack py={2} direction="row" justifyContent='space-between' alignItems="center">
    <Typography variant='h4' component={Link} href='/' fontWeight={600}>
-    B<Box component="span" color="primary.main">S</Box> Health Care
+    B<Box component="span" color="#ffffff">S</Box> Health Care
    </Typography>
    <Stack direction="row" justifyContent="space-between" gap={4}>
-    <Typography component={Link} href='/consultation'>Consultation</Typography>
-    <Typography >Health Plans</Typography>
-    <Typography>Medicine</Typography>
-    <Typography>Diagnostics</Typography>
-    <Typography>NGOS</Typography>
+    <Typography color="#ffffff" component={Link} href='/consultation'>Consultation</Typography>
+    <Typography color="#ffffff" >Health Plans</Typography>
+    <Typography color="#ffffff">Medicine</Typography>
+    <Typography color="#ffffff">Diagnostics</Typography>
+    <Typography color="#ffffff">NGOS</Typography>
    {
     userInfo?.userId ? (
-      <Typography component={Link} href="/dashboard">Dashboard</Typography>
+      <Typography color="#ffffff" component={Link} href="/dashboard">Dashboard</Typography>
     ): null
    } 
    </Stack>
    {  
   userInfo?.userId ? 
-   (<Button onClick={handleLogOut} color="error">Logout</Button>)
-  :(<Button component={Link} href='/login'>Login</Button>)
+   (<Button sx={{
+    boxShadow:0
+   }} onClick={handleLogOut} color="error">Logout</Button>)
+  :(<Button sx={{
+    boxShadow:0,
+   
+   }} component={Link} href='/login'>Login</Button>)
    }
    </Stack>
     </Container>
+ </Box>
   );
 };
 

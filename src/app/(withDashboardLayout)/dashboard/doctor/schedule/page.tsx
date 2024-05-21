@@ -20,12 +20,8 @@ query['limit'] = limit
   const [allSchedule,setAllSchedule] = useState<any>([])
 const {data,isLoading } = useGetAllDoctorSchedulesQuery({...query})
 const [deleteSchedule]  = useDeleteScheduleMutation()
-
 const schedules = data?.doctorSchedules 
-console.log(schedules,"doctor");
-
 const meta = data?.meta
-// console.log(meta);
 let pageCount: number;
 if(meta?.total){
   pageCount = Math.ceil(meta.total / limit) 

@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 type Role = keyof typeof roleBasePrivateRoutes;
 const AuthRoutes = ['/login','/register']
- const commonPrivateRoutes = ["/dashboard", "/dashboard/change-password"];
+ const commonPrivateRoutes = ["/dashboard", "/dashboard/change-password","doctors"];
  const roleBasePrivateRoutes = {
     PATIENT: [/^\/dashboard\/patient/],
     DOCTOR: [/^\/dashboard\/doctor/], 
@@ -22,8 +22,12 @@ console.log(accessToken,"======================================================"
         }
             return NextResponse.redirect(new URL('/login', request.url))
     }
-    if(accessToken && commonPrivateRoutes.includes(pathname)){
-       return NextResponse.next()
+//     if(accessToken && commonPrivateRoutes.includes(pathname)){
+//        return NextResponse.next()
+//    }
+
+   if(accessToken && (commonPrivateRoutes.includes(pathname) || commonPrivateRoutes.some((route)=> pathname.includes(route)))){
+    return NextResponse.next()
    }
    let decodedUser = null;
    if(accessToken){
@@ -51,5 +55,5 @@ console.log(accessToken,"======================================================"
  
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/login','/register','/dashboard/:page*'],
+  matcher: ['/login','/register','/dashboard/:page*',"/doctors/:page*"],
 }
