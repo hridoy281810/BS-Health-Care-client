@@ -91,6 +91,11 @@ export const generateSidebarItem = (role:TUserRole):ISidebarItem[]=>{
                         path: `${role}/appointments`,
                         icon:CalendarMonthIcon,
                     },
+                    {
+                        title:"My Reviews",
+                        path: `${role}/reviews`,
+                        icon:ReviewsIcon,
+                    },
                 )
                 break;
             case USER_ROLE.PATIENT:

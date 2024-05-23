@@ -1,14 +1,14 @@
 "use client"
 import  {  useState } from 'react';
-import { Box,Chip,IconButton, Pagination, Stack, Typography } from '@mui/material';
-import { DataGrid, GridColDef, GridRowEditStopReasons } from '@mui/x-data-grid';
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Box,IconButton, Pagination } from '@mui/material';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useGetMyAppointmentsQuery } from '@/redux/api/appointment';
 import { dateFormatter } from '@/utils/DateFormatter';
 import { getTimeIn12HourFormat } from '../../doctor/schedule/components/MultipleSelectField';
 import Link from 'next/link';
 import VideocamIcon from '@mui/icons-material/Videocam';
-import BsChip from '@/components/shared/BsChips/BsChip';
+import BsChip from '@/components/shared/BsChips/BsChip';import ReviewModal from './components/ReviewModal';
+import RateReviewIcon from '@mui/icons-material/RateReview';
 const AppointmentsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const query:Record<string,any> = {}
@@ -21,8 +21,6 @@ const {data:appointmentData,isLoading } = useGetMyAppointmentsQuery({})
 // const schedules = data?.doctorSchedules 
 console.log(appointmentData,'appoinstment');
 const appointments = appointmentData?.appointments?.data
-console.log(appointments,'true');
-
 const meta = appointmentData?.meta
 let pageCount: number;
 if(meta?.total){
@@ -69,6 +67,22 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
           color: row?.paymentStatus === 'PAID' ? "primary.main": ""
         }}/>
          </IconButton>
+      )
+    }
+  },
+    { field: 'review', headerName: 'Review', flex:1,  headerAlign:"center",
+    align:"center",
+    renderCell: ({row})=>{
+      return(
+        <>
+         <IconButton onClick={()=> setIsModalOpen(true)}  disabled={row?.paymentStatus === "UNPAID"}>
+              <RateReviewIcon  sx={{
+          color: row?.paymentStatus === 'PAID' ? "primary.main": ""
+        }}/>
+         </IconButton>
+            <ReviewModal appointmentId={row?.id} open={isModalOpen} setOpen={setIsModalOpen}/>
+        </>
+
       )
     }
   },

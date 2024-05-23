@@ -29,7 +29,6 @@ const BSInput = ({name,label,size="small",fullWidth,type="text",sx,required,plac
             type={type}
             placeholder={label}
             required={required} 
-         npm run dev
          
             />
         )}

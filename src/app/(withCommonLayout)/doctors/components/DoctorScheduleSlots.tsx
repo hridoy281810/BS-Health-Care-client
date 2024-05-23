@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation';
 const DoctorScheduleSlots = ({id}:{id:string}) => {
    const router = useRouter()
   const [scheduleId, setScheduleId] = useState('');
-  const query: Record<string, any> = {};
+  let query: Record<string, any> = {};
   query['doctorId'] = id;
   query['startDate'] = dayjs(new Date())
      .utc()
