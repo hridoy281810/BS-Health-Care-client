@@ -68,6 +68,11 @@ export const generateSidebarItem = (role:TUserRole):ISidebarItem[]=>{
                         icon:CalendarMonthIcon,
                     },
                     {
+                        title:"Prescriptions",
+                        path: `${role}/prescriptions`,
+                        icon:NoteIcon,
+                    },
+                    {
                         title:"Reviews",
                         path: `${role}/reviews`,
                         icon:ReviewsIcon,
