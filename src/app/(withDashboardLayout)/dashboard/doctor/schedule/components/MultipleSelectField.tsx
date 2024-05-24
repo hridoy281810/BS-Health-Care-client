@@ -82,7 +82,7 @@ const MultipleSelectField = ({schedules,selectedScheduleIdes,setSelectedSchedule
           )}
           MenuProps={MenuProps}
         >
-          { schedules.length > 0  ? schedules.map((schedule) => (
+          { schedules?.length > 0  ? schedules.map((schedule) => (
             <MenuItem
               key={schedule?.id}
               value={schedule?.id}
@@ -92,7 +92,7 @@ const MultipleSelectField = ({schedules,selectedScheduleIdes,setSelectedSchedule
          {`${getTimeIn12HourFormat(schedule?.startDate)} -  ${getTimeIn12HourFormat(schedule?.endDate)}`
          }
             </MenuItem>
-          )) :<Box sx={{padding: 4}}> No Schedule Available Right Now</Box>}
+          )) :<Box sx={{padding: 4}}> No appointments are available for the selected date.</Box>}
         </Select>
       </FormControl>
     </div>
