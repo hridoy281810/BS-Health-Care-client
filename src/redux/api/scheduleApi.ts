@@ -13,7 +13,7 @@ const scheduleApi = baseApi.injectEndpoints({
         }),
         invalidatesTags:[tagTypes.schedule]
       }),
-      getAllSchedule:build.query({
+      getAllSchedules:build.query({
         query:(arg:Record<string,any>)=>({
             url: "/schedule",
             method: "GET",
@@ -21,7 +21,7 @@ const scheduleApi = baseApi.injectEndpoints({
         }),
         transformResponse: (response: TSchedule[],meta: IMeta)=>{
             return{
-                doctors:response,
+              schedules:response,
                 meta
             }
         }
@@ -29,14 +29,17 @@ const scheduleApi = baseApi.injectEndpoints({
         providesTags:[tagTypes.schedule]
       }),
       deleteSchedule:build.mutation({
-        query:(id)=>({
+        query:(id)=>{
+          console.log(id)
+          return {
             url: `/schedule/${id}`,
             method: "DELETE",
          
-        }),
+        }
+        },
         invalidatesTags:[tagTypes.schedule]
       }),
       }),
 })
 
-export const {useCreateScheduleMutation,useGetAllScheduleQuery,useDeleteScheduleMutation} = scheduleApi;
+export const {useCreateScheduleMutation,useGetAllSchedulesQuery,useDeleteScheduleMutation} = scheduleApi;

@@ -5,17 +5,23 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { TChildrenProps } from '@/types';
 import SidebarItem from '../sidebarItem/SidebarItem';
+import { useGetSingleUserQuery } from '@/redux/api/userApi';
+import { Avatar, Badge, Stack } from '@mui/material';
+import AccountMenu from '../AccountMenu/AccountMenu';
 
 const drawerWidth = 240;
 
 
 export default function DashboardSidebar({children}:TChildrenProps) {
+  const {data,isLoading} = useGetSingleUserQuery({})
+  console.log('data',data);
+  
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
   const handleDrawerClose = () => {
@@ -40,7 +46,8 @@ export default function DashboardSidebar({children}:TChildrenProps) {
           ml: { sm: `${drawerWidth}px` },
           background:"#F4F7FE",
           boxShadow:0,
-          borderBottom: "1px solid lightgray"
+          borderBottom: "1px solid lightgray",
+          py: 1
         }}
       >
         <Toolbar>
@@ -49,18 +56,34 @@ export default function DashboardSidebar({children}:TChildrenProps) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' },color:"primary.main" }}
+            sx={{ mr: 2, display: { sm: 'none' }}}
           >
-            <MenuIcon />
+            <MenuIcon sx={{color: "primary.main"}} />
           </IconButton>
-  <Box>
-  <Typography variant="h6" noWrap component="div" color="gray">
-  Hi! Mohammad Anisur Rahman
+  <Box sx={{
+    display: "flex", 
+    alignItems:"center",
+    justifyContent:"space-between",
+    width:"100%"
+  }}>
+<Box>
+    <Typography  variant="h6" noWrap component="div" color="gray">
+  Hi! {isLoading ? "Loading...": data?.name}
           </Typography>
   <Typography variant="h6" noWrap component="div" color="primary.main">
   Welcome To, BS Health Care!
           </Typography>
+</Box>
   </Box>
+  <Stack direction="row" gap={3}>
+ <Badge badgeContent={1} color='primary'>
+  <IconButton sx={{background: "#ffffff"}}>
+<NotificationsNoneIcon color='action' />
+  </IconButton>
+ </Badge>
+ <Avatar alt={data?.name} src={data?.profilePhoto} />
+ <AccountMenu />
+  </Stack>
         </Toolbar>
       </AppBar>
       <Box

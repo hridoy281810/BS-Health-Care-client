@@ -3,119 +3,110 @@ import BSForm from "@/components/Forms/BSForm";
 import BSInput from "@/components/Forms/BSInput";
 import BSSelect from "@/components/Forms/BSSelect";
 import { useGetSingleDoctorQuery, useUpdateDoctorMutation } from "@/redux/api/doctorsApi";
-import { useGetSpecialtyQuery } from "@/redux/api/specialtiesApi";
-import { Gender, IDoctor } from "@/types";
-import { modifyPayload } from "@/utils/modifyPayload";
-import { Box, Button, Grid } from "@mui/material";
+import { Gender} from "@/types";
+import { Box, Button, Grid, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 
 type TParamProps = {
     params: {id: string}
 }
-
 const page = ({params}:TParamProps) => {
+  const router = useRouter()
 const id = params.id
-   const {data}:IDoctor[]= useGetSingleDoctorQuery<IDoctor[]>(id)
-   const doctorData = data?.doctors
-   const doctorValues = {
-    doctor: {
-     name:doctorData?.name,
-        email:doctorData?.email,
-        contactNumber:"huiuh",
-        address:"",
-        registrationNumber:"",
-        experience:0,
-        gender:"",
-        apointmentFee:0,
-        qualification:"",
-        currentWorkingPlace:"",
-        designation:"",
-        }, 
-  }
+const { data, isLoading } = useGetSingleDoctorQuery(id);
   const [updateDoctor] = useUpdateDoctorMutation()
- const {data:specialtyData} = useGetSpecialtyQuery({})
-const specialtyOptions:any[] = [];
-specialtyData?.forEach((item:any) => {
-    specialtyOptions.push(item.id);
-});
-   const handleFormSubmit = async(values:FieldValues)=>{
+//  const {data:specialtyData} = useGetSpecialtyQuery({})
+// const specialtyOptions:any[] = [];
+// specialtyData?.forEach((item:any) => {
+//     specialtyOptions.push(item.id);
+// });
+   const handleFormSubmit = async(values:FieldValues) =>{
   
-     values.doctor.experience = Number(values.doctor.experience);
-     values.doctor.apointmentFee = Number(values.doctor.apointmentFee);
-    //  const [specialtiesId] = values.specialties.split(' ');
+     values.experience = Number(values.experience);
+     values.apointmentFee = Number(values.apointmentFee);
+    //  const [specialtiesId] = values.specialties.split('');
 
-     // Set an array of objects for `values.specialties`
-     values.specialties = [
-         {
-             specialtiesId: values.specialties,
-             isDeleted: false
-         }
-     ];
-
-    // const data = modifyPayload(values)
-   
-    console.log(values);
-    const id = values.doctor.id
+    //  // Set an array of objects for `values.specialties`
+    //  values.specialties = [
+    //      {
+    //          specialtiesId: values.specialties,
+    //          isDeleted: false
+    //      }
+    //  ];
+   values.id = id;
     try{
-   const res = await updateDoctor({values,id})
+   const res = await updateDoctor({ id: values.id, body: values }).unwrap()
       console.log('res',res);
-   
-      if(res){
-       toast.success("Doctor created successfully!!")
-     
+      if (res?.id) {
+        toast.success("Doctor Updated Successfully!!!");
+        router.push("/dashboard/admin/doctors");
       }
-      
     }catch(error:any){
        console.log(error.message);
-       
     }
   }
-
+  const defaultValues = {
+    email: data?.email || "",
+    name: data?.name || "",
+    contactNumber: data?.contactNumber || "",
+    address: data?.address || "",
+    registrationNumber: data?.registrationNumber || "",
+    gender: data?.gender || "",
+    experience: data?.experience || 0,
+    apointmentFee: data?.apointmentFee || 0,
+    qualification: data?.qualification || "",
+    currentWorkingPlace: data?.currentWorkingPlace || "",
+    designation: data?.designation || "",
+  };
   return (
     <Box>
-    <BSForm onSubmit={handleFormSubmit} defaultValues={doctorValues}>
+       <Typography component="h5" variant="h5">
+        Update Doctor Info
+      </Typography>
+  {isLoading?( <p>Loading...</p> ):(
+<BSForm onSubmit={handleFormSubmit} defaultValues={data && defaultValues}>
     <Grid container spacing={2} sx={{my:5}}>
   <Grid item xs={12} sm={12} md={4} >
-  <BSInput name='doctor.name' label='Name'  fullWidth={true} sx={{mb:2}}/>
+  <BSInput name='name'label='Name' fullWidth={true} sx={{mb:2}}/>
   </Grid>
   <Grid item xs={12} sm={12} md={4} >
-  <BSInput name='doctor.email' type='email' label='Email' fullWidth={true} sx={{mb:2}}/>
+  <BSInput name='email'type='email'label='Email'fullWidth={true} sx={{mb:2}}/>
   </Grid>
   <Grid item xs={12} sm={12} md={4} >
-  <BSInput name='doctor.contactNumber' type='tel' label='Contact Number' fullWidth={true} sx={{mb:2}}/>
+  <BSInput name='contactNumber'type='tel'label='Contact Number'fullWidth={true} sx={{mb:2}}/>
   </Grid>
   <Grid item xs={12} sm={12} md={4} >
-  <BSInput name='doctor.address'  label='Address' fullWidth={true} sx={{mb:2}}/>
+  <BSInput name='address' label='Address'fullWidth={true} sx={{mb:2}}/>
   </Grid>
   <Grid item xs={12} sm={12} md={4} >
-  <BSInput name='doctor.registrationNumber'  label='Registration Number' fullWidth={true} sx={{mb:2}}/>
+  <BSInput name='registrationNumber' label='Registration Number'fullWidth={true} sx={{mb:2}}/>
   </Grid>
   <Grid item xs={12} sm={12} md={4} >
-  <BSInput name='doctor.experience' type='number'  label='Experience' fullWidth={true} sx={{mb:2}}/>
+  <BSInput name='experience'type='number' label='Experience'fullWidth={true} sx={{mb:2}}/>
   </Grid>
   <Grid item xs={12} sm={12} md={4} >
-  <BSSelect multiple={false} items={Gender}  name='doctor.gender'   label='Gender' fullWidth={true} sx={{mb:2}}/>
-  </Grid>
-
-  <Grid item xs={12} sm={12} md={4} >
-  <BSInput name='doctor.apointmentFee'  type='number'  label='Apointment Fee' fullWidth={true} sx={{mb:2}}/>
+  <BSSelect multiple={false} items={Gender}  name='gender'  label='Gender'fullWidth={true} sx={{mb:2}}/>
   </Grid>
   <Grid item xs={12} sm={12} md={4} >
-  <BSInput name='doctor.qualification'   label='Qualification' fullWidth={true} sx={{mb:2}}/>
+  <BSInput name='apointmentFee' type='number' label='Apointment Fee'fullWidth={true} sx={{mb:2}}/>
   </Grid>
   <Grid item xs={12} sm={12} md={4} >
-  <BSInput name='doctor.currentWorkingPlace'   label='Current Working Place' fullWidth={true} sx={{mb:2}}/>
+  <BSInput name='qualification'  label='Qualification'fullWidth={true} sx={{mb:2}}/>
   </Grid>
   <Grid item xs={12} sm={12} md={4} >
-  <BSInput name='doctor.designation'   label='designation' fullWidth={true} sx={{mb:2}}/>
+  <BSInput name='currentWorkingPlace'  label='Current Working Place'fullWidth={true} sx={{mb:2}}/>
   </Grid>
   <Grid item xs={12} sm={12} md={4} >
-  <BSSelect   multiple={true} items={specialtyOptions}  name='specialties'   label='specialties' fullWidth={true} sx={{mb:2}}/>
+  <BSInput name='designation'  label='designation'fullWidth={true} sx={{mb:2}}/>
   </Grid>
+  {/* <Grid item xs={12} sm={12} md={4} >
+  <BSSelect   multiple={true} items={specialtyOptions}  name='specialties'  label='specialties'fullWidth={true} sx={{mb:2}}/>
+  </Grid> */}
     </Grid>
-    <Button sx={{mt:1}} type='submit' >Create</Button>
-</BSForm>
+    <Button sx={{mt:1}} type='submit'>Update</Button>
+</BSForm>)}
     </Box>
   );
 };

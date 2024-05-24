@@ -1,11 +1,12 @@
-"use client"
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Container, Grid, Typography } from "@mui/material";
+// "use client"
+import { Box, Button, Card, CardActions, CardContent, Container, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PaymentIcon from '@mui/icons-material/Payment';
 const TopRatedDoctors = async() => {
     const res = await fetch("http://localhost:5000/api/v1/doctor?page=1&limit=3")
     const{ data:doctors }= await res.json()
+    console.log(doctors);
     
   return (
     <Box sx={{
@@ -31,26 +32,26 @@ const TopRatedDoctors = async() => {
  }}>
  <Grid container spacing={2}>
 {
-    doctors.map((item: any)=>(
+    doctors?.map((item: any)=>(
         <Grid item key={item.id} md={4} >
             <Card sx={{ }}>
     <Box>
         <Image     
        
-        src={item.profilePhoto} alt="green iguana" width={500} height={1000}  />
+        src={item?.profilePhoto! || "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1713936271~exp=1713939871~hmac=ada5802159c0f0f841e48831e328ea7101cfc11c887c318d823e790ab3ef70d5&w=826"}  alt="green iguana" width={500} height={1000}  />
     </Box>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-        {item.name}
+        {item?.name!}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-  {item.qualification}, {item.designation}
+  {item?.qualification!}, {item?.designation!}
         </Typography>
         <Typography variant="body2" color="text.secondary" mt={1}>
-      <LocationOnIcon />   {item.address}
+      <LocationOnIcon />   {item?.address!}
         </Typography>
         <Typography variant="body2" color="text.secondary" mt={1}>
-      <PaymentIcon />  tk {item.apointmentFee}
+      <PaymentIcon />  tk {item?.apointmentFee!}
         </Typography>
       </CardContent>
       <CardActions sx={{

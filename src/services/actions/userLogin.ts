@@ -1,4 +1,4 @@
-"use server"
+// "use server"
 
 import { FieldValues } from "react-hook-form"
 
@@ -10,7 +10,8 @@ export const userLogin = async(userData:FieldValues)=>{
             "Content-Type":"application/json"
         },
         body:JSON.stringify(userData) ,
-        cache:"no-store"
+        // cache:"no-store"
+        credentials: "include",
     })
     const userInfo = await res.json()
     return userInfo

@@ -8,7 +8,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
 
 export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -35,7 +34,6 @@ export default function BSModal({open=false,setOpen,title="",children,sx}:TModal
 
   return (
     <React.Fragment>
-   
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"

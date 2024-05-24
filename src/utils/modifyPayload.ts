@@ -6,5 +6,6 @@ export const modifyPayload = (values:any)=>{
     const formData = new FormData()
     formData.append("data",data);
     formData.append("file",file as Blob);
+    console.log(formData)
     return formData;
 }

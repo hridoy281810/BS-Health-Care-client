@@ -3,7 +3,7 @@ import { Box, Button, IconButton } from '@mui/material';
 import { useEffect, useState } from 'react';
 import ScheduleModal from './components/ScheduleModal';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { useDeleteScheduleMutation, useGetAllScheduleQuery } from '@/redux/api/scheduleApi';
+import { useDeleteScheduleMutation, useGetAllSchedulesQuery } from '@/redux/api/scheduleApi';
 import { toast } from 'sonner';
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -11,10 +11,10 @@ import { dateFormatter } from '@/utils/DateFormatter';
 import dayjs from 'dayjs';
 const SchedulesPage = () => {
   const [allSchedule,setAllSchedule] = useState<any>([])
-  const {data,isLoading} = useGetAllScheduleQuery({})
+  const {data,isLoading} = useGetAllSchedulesQuery({})
   // console.log(data);
   
-  const schedules = data?.doctors
+  const schedules = data?.schedules
   useEffect(()=>{
 const updateData =schedules?.map((schedule)=> {
   return {
