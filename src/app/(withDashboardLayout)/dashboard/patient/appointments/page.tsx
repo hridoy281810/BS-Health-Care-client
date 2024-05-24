@@ -21,6 +21,8 @@ const {data:appointmentData,isLoading } = useGetMyAppointmentsQuery({})
 // const schedules = data?.doctorSchedules 
 console.log(appointmentData,'appoinstment');
 const appointments = appointmentData?.appointments?.data
+console.log(appointments,"hello");
+
 const meta = appointmentData?.meta
 let pageCount: number;
 if(meta?.total){
@@ -33,13 +35,13 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
   const columns: GridColDef[] = [
     { field: 'name', headerName: 'Doctor Name', flex:1,
       renderCell:({row})=> {
-        return row.doctor.name
+        return row?.doctor?.name
       }
     },
     { field: 'appointmentDate', headerName: 'Appointment Date', flex:1,  headerAlign:"center",
     align:"center",
       renderCell:({row})=> {
-        return dateFormatter(row?.schedule.startDate)
+        return dateFormatter(row?.schedule?.startDate)
       }
     },
     { field: 'appointmentTime', headerName: 'Appointment Time', flex:1,  headerAlign:"center",
@@ -52,8 +54,8 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     align:"center",
   renderCell: ({row})=>{
      return (
-      row.paymentStatus === "PAID" ?  <BsChip label={row.paymentStatus}  type='success' variant="outlined" />:
-      <BsChip  label={row.paymentStatus} type="error" variant="outlined" />
+      row?.paymentStatus === "PAID" ?  <BsChip label={row?.paymentStatus}  type='success' variant="outlined" />:
+      <BsChip  label={row?.paymentStatus} type="error" variant="outlined" />
      )
   }
   },

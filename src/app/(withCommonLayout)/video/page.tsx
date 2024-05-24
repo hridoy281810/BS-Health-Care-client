@@ -5,6 +5,7 @@ interface PropsType{
 }
 const VideoCallingPage = ({searchParams}:PropsType) => {
     const videoCallingId = searchParams?.videoCallingId
+    
   return (
     <div>
         <VideoCall videoCallingId={videoCallingId}/>

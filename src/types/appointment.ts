@@ -1,4 +1,4 @@
-export interface Doctor {
+export type  Doctor =  {
     address: string;
     appointmentFee: number;
     averageRating: number;
@@ -18,7 +18,7 @@ export interface Doctor {
     updatedAt: string;
 }
 
-export interface Patient {
+export type Patient =  {
     address: string;
     contactNumber: string;
     createdAt: string;
@@ -30,7 +30,7 @@ export interface Patient {
     updatedAt: string;
 }
 
-export interface IAppointmentData {
+export type IData ={
     appointmentId: string;
     comment: string;
     createdAt: string;
@@ -41,5 +41,8 @@ export interface IAppointmentData {
     patientId: string;
     rating: number;
     updatedAt: string;
-    data?: IAppointmentData
+}
+
+export type IAppointmentData  = {
+    data: IData[];
 }

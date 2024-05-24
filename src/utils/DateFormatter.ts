@@ -13,5 +13,4 @@ const formattedDate = year + '-' + month + '-' + day;
 
 console.log(formattedDate); // Output: 2024-04-15
 return formattedDate
-
 }

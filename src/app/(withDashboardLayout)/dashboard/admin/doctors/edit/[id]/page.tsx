@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 
-type TParamProps = {
+export type TParamProps = {
     params: {id: string}
 }
 const page = ({params}:TParamProps) => {
