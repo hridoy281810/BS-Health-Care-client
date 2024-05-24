@@ -13,8 +13,8 @@ type TSidebarItemsProps = {
 const SidebarItems = ({item,index}:TSidebarItemsProps) => {
     const linkPath = `/dashboard/${item.path}`
     const pathName = usePathname()
-    console.log('linkPath', linkPath);
-    console.log('pathName', pathName);
+    // console.log('linkPath', linkPath);
+    // console.log('pathName', pathName);
     
     
   return (

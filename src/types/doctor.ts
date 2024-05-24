@@ -5,6 +5,13 @@
 //     message: string
 //     data: Data
 //   }
+export type TSchedule = {
+  id:string
+  startDate: string
+  endDate: string
+  updatedAt?: string | undefined;
+  createdAt?: string | undefined;
+}
 
   export interface IDoctor {
     id: string
@@ -26,6 +33,7 @@
     averageRating: number
     specialties?: ISpecialties[]
     data:IDoctor[]
+    schedules:TSchedule[]
   }
   export interface ISpecialties {
     specialtiesId: string
@@ -35,3 +43,9 @@
     doctor: IDoctor;
     password: string
   }
+
+  export type TAllSpecialties = {
+    icon:string,
+    id:string,
+    title:string
+  } 

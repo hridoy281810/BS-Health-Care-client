@@ -1,4 +1,3 @@
-
 import { baseApi } from '@/redux/api/baseApi';
 import { tagTypes } from '../tag-types';
 import {  IMeta, TSchedule } from '@/types';
@@ -14,11 +13,14 @@ const scheduleApi = baseApi.injectEndpoints({
         invalidatesTags:[tagTypes.schedule]
       }),
       getAllSchedules:build.query({
-        query:(arg:Record<string,any>)=>({
+        query:(arg:Record<string,any>)=>{
+          console.log("first", arg)
+          return {
             url: "/schedule",
             method: "GET",
             params:arg
-        }),
+        }
+        },
         transformResponse: (response: TSchedule[],meta: IMeta)=>{
             return{
               schedules:response,

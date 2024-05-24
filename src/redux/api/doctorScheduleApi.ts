@@ -14,20 +14,22 @@ const doctorScheduleApi = baseApi.injectEndpoints({
         }),
         invalidatesTags:[tagTypes.doctorSchedule]
       }),
-      getAllDoctorSchedules:build.query({
-        query:(arg:Record<string,any>)=>({
-            url: "/doctor-schedule",
-            method: "GET",
-            params:arg
-        }),
-        transformResponse: (response: any,meta: IMeta)=>{
-            return{
-              doctorSchedules:response,
-                meta
-            }
-        }
-        ,
-        providesTags:[tagTypes.schedule]
+      getAllDoctorSchedules: build.query({
+        query: (arg: Record<string, any>) => {
+          console.log(arg)
+          return {
+              url: '/doctor-schedule',
+              method: 'GET',
+              params: arg,
+           };
+        },
+        transformResponse: (response, meta: IMeta) => {
+           return {
+              doctorSchedules: response,
+              meta,
+           };
+        },
+        providesTags:[tagTypes.doctorSchedule]
       }),
       getDoctorSchedule:build.query({
         query:(id:string | string[] | undefined)=>({

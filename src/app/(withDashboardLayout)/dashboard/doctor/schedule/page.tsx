@@ -20,12 +20,8 @@ query['limit'] = limit
   const [allSchedule,setAllSchedule] = useState<any>([])
 const {data,isLoading } = useGetAllDoctorSchedulesQuery({...query})
 const [deleteSchedule]  = useDeleteScheduleMutation()
-
 const schedules = data?.doctorSchedules 
-console.log(schedules);
-
 const meta = data?.meta
-console.log(meta);
 let pageCount: number;
 if(meta?.total){
   pageCount = Math.ceil(meta.total / limit) 
@@ -53,7 +49,7 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     { field: 'startTime', headerName: 'Start Time', flex:1},
     { field: 'endTime', headerName: 'End Time', flex:1},
     { field: 'id', headerName: 'Action', flex:1,headerAlign:"center",align:"center", renderCell:({row})=>{
-      console.log(row);
+      // console.log(row);
   const handleDelete = async(id:string)=>{    
    try{
       const res = await deleteSchedule(id).unwrap();

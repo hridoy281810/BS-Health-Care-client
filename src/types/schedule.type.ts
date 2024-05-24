@@ -12,9 +12,15 @@ export type TScheduleForm = {
     startDate: string
     endDate: string
     startTime: string
-    endTime: string
+    endTime: string,
+    isBooked?:boolean
   }
 
+  // export type TDoctorSchedule = {
+  //   schedules: TSchedule[],
+  //   isBooked?: boolean
+  // }
   export type TDoctorSchedule = {
-    schedules: TSchedule[]
+    schedule: TSchedule[],
+    isBooked?: boolean
   }

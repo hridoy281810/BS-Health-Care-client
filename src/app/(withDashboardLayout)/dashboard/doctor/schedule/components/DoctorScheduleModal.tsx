@@ -9,6 +9,7 @@ import MultipleSelectField from './MultipleSelectField';
 import {  Stack } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useCreateDoctorScheduleMutation } from '@/redux/api/doctorScheduleApi';
+import { FieldValues } from 'react-hook-form';
 
 type TProps = {
     open: boolean;
@@ -30,11 +31,11 @@ const DoctorScheduleModal = ({open,setOpen}:TProps) => {
     // console.log(schedules);
 const [createDoctorSchedule, {isLoading}] = useCreateDoctorScheduleMutation()
 
-    const onSubmit = async()=>{
-        
+    const onSubmit = async(value:FieldValues)=>{
+
         try{
         const res = await createDoctorSchedule({scheduleIds:selectedScheduleIdes}).unwrap()
-        console.log(res);
+        console.log(res,'doctor sedule');
            if(res?.success === true ){
             setOpen(false)
            }
@@ -61,8 +62,9 @@ console.log(error.message);
           loading={isLoading}
           loadingIndicator="Submitting..."
           variant="contained"
+         
         >
-          <span>Submit</span>
+          <span typeof='submit'>Submit</span>
         </LoadingButton>
       </Stack>
     </BSModal>

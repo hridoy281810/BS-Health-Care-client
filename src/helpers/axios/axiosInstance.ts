@@ -1,5 +1,6 @@
 import { authKey } from "@/constance/authKey";
 import { getNewAccessToken } from "@/services/actions/auth.service";
+import setAccessToken from "@/services/actions/setAccessToken";
 import { TErrorResponse, TResponse } from "@/types";
 import { getToLocalStorage, setToLocalStorage } from "@/utils/local-storage";
 import axios from "axios";
@@ -43,6 +44,7 @@ instance.interceptors.response.use(
      const accessToken = response?.data?.accessToken;
      config.headers["Authorization"] = accessToken;
      setToLocalStorage(authKey,accessToken)
+     setAccessToken(accessToken)
      return instance(config)
   } else{
     const responseObject:TErrorResponse = {

@@ -4,6 +4,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { logoutUser } from "@/services/actions/logoutUser";
 
 const StyledMenu = styled((props: MenuProps) => (
     <Menu
@@ -56,10 +57,9 @@ const AccountMenu = () => {
     const handleClose = ()=>{
         setAnchorEl(null)
     }
-    const handleLogout = ()=>{
-        setAnchorEl(null)
-        localStorage.removeItem("access-token");
-        router.push('/login')
+    const handleLogOut = ()=>{
+      setAnchorEl(null)
+      logoutUser(router)
     }
   return (
     <React.Fragment>
@@ -107,7 +107,7 @@ const AccountMenu = () => {
         Profile
         </MenuItem></Link>
         <Divider />
-        <MenuItem onClick={handleLogout} >
+        <MenuItem onClick={handleLogOut} >
             <ListItemIcon>
                 <LogoutIcon fontSize="small" sx={{color:"error.main"}} />
             </ListItemIcon>

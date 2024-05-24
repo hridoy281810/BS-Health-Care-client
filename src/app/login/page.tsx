@@ -99,7 +99,7 @@ const LoginPage = () => {
                     fullWidth={true} type='password' name='password'
                   />
                   <Typography textAlign="end" sx={{ mt: 2 }} component="p" fontWeight={300} >
-                    <Link href="/" className='text-[#1586fd] text-end mt-2'>Forgot Password?</Link>
+                    <Link href="/forgot-password" className='text-[#1586fd] text-end mt-2'>Forgot Password?</Link>
                   </Typography>
                 </Grid>
 

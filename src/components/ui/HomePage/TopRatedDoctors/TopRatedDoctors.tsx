@@ -3,11 +3,12 @@ import { Box, Button, Card, CardActions, CardContent, Container, Grid, Typograph
 import Image from "next/image";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PaymentIcon from '@mui/icons-material/Payment';
-const TopRatedDoctors = async() => {
-    const res = await fetch("http://localhost:5000/api/v1/doctor?page=1&limit=3")
+import Link from "next/link";
+const TopRatedDoctors = async() => { 
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/doctor?page=1&limit=3`)
     const{ data:doctors }= await res.json()
     console.log(doctors);
-    
+       
   return (
     <Box sx={{
         my:10,
@@ -35,7 +36,17 @@ const TopRatedDoctors = async() => {
     doctors?.map((item: any)=>(
         <Grid item key={item.id} md={4} >
             <Card sx={{ }}>
-    <Box>
+    <Box sx={{
+      width:"100%",
+      height:300,
+      
+       "& img": {
+        width:"100%",
+        height:300,
+        overflow:"hidden",
+        objectFit:"cover"
+       }
+    }}>
         <Image     
        
         src={item?.profilePhoto! || "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?t=st=1713936271~exp=1713939871~hmac=ada5802159c0f0f841e48831e328ea7101cfc11c887c318d823e790ab3ef70d5&w=826"}  alt="green iguana" width={500} height={1000}  />
@@ -70,7 +81,9 @@ const TopRatedDoctors = async() => {
   <Box sx={{
 textAlign:"center"
   }}>
+  <Link href="/doctors">
   <Button sx={{marginTop:"20px"}} variant="outlined">View All</Button>
+  </Link>
   </Box>
  </Container>
     </Box>

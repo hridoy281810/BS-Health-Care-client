@@ -20,7 +20,7 @@ const drawerWidth = 240;
 
 export default function DashboardSidebar({children}:TChildrenProps) {
   const {data,isLoading} = useGetSingleUserQuery({})
-  console.log('data',data);
+  // console.log('data',data);
   
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);

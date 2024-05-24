@@ -1,4 +1,6 @@
-import { getUsrInfo, removeUser } from '@/services/actions/auth.service';
+
+import { getUsrInfo } from '@/services/actions/auth.service';
+import { logoutUser } from '@/services/actions/logoutUser';
 import { Button } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -9,10 +11,8 @@ const AuthButton = () => {
     console.log(userInfo);
     const router = useRouter()
     const handleLogOut = ()=>{
-     removeUser()
-     router.refresh()
+      logoutUser(router)
     }
-  
   return (
     <>
 {  

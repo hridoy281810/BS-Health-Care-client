@@ -13,7 +13,7 @@ const ProfilePage = () => {
     const [isModalOpen,setIsModalOpen] = useState(false)
     
     const {data,isLoading} = useGetSingleUserQuery(undefined)
-    // console.log(data);
+    console.log(data);
     const [updateProfile,{isLoading:updating}] = useUpdateProfileMutation() 
   //   const [updateProfile,{isLoading: updating}]= useUpdateProfileMutation()
   // const fileUploadHandler = (file:File)=>{
