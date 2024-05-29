@@ -5,6 +5,7 @@ import Image from 'next/image';
 import logo from '@/assets/svgs/logo.svg'
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import html2pdf from 'html2pdf.js';
+import { dateFormatter } from '@/utils/DateFormatter';
 
 const parseInstructions = (instructions: string) => {
   const parser = new DOMParser();
@@ -12,7 +13,7 @@ const parseInstructions = (instructions: string) => {
   const parsedInstructions = Array.from(doc.body.childNodes);
 
   return parsedInstructions.map((node, index) => (
-    <div key={index} dangerouslySetInnerHTML={{ __html: node.outerHTML as any }} />
+    <div key={index} dangerouslySetInnerHTML={{ __html: (node as Element).outerHTML as any }} />
   ));
 };
 
@@ -23,8 +24,10 @@ const downloadPDF = (prescription: any) => {
 
 const PrescriptionsPage = () => {
   const { data: prescriptionsData } = useGetMyPrescriptionsQuery({});
+  console.log(prescriptionsData);
+  
   return (
-    <Grid container spacing={2} sx={{ my: 5 }}>
+    <Grid container spacing={2} sx={{my:1}}>
       {prescriptionsData?.prescriptions.map((prescription: any, index) => (
         <Grid item xs={6} sm={12} md={6} key={index}>
           <Box
@@ -72,6 +75,9 @@ const PrescriptionsPage = () => {
                 marginTop: 2
               }}>
                 {parseInstructions(prescription?.instructions)}
+                <Typography>
+                Date of next meeting:  {dateFormatter(prescription?.followUpDate)}
+                </Typography>
               </Box>
               <Typography sx={{
                 textAlign: "center",

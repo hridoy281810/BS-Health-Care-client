@@ -9,6 +9,7 @@ import Link from 'next/link';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import BsChip from '@/components/shared/BsChips/BsChip';import ReviewModal from './components/ReviewModal';
 import RateReviewIcon from '@mui/icons-material/RateReview';
+import { useGetALlMetaQuery } from '@/redux/api/userApi';
 const AppointmentsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const query:Record<string,any> = {}
@@ -16,12 +17,14 @@ const AppointmentsPage = () => {
 const [limit,setLimit] = useState(4)
 query['page'] = page
 query['limit'] = limit
+const {data:metaData } = useGetALlMetaQuery({})
+console.log(metaData,'metaData');
 
 const {data:appointmentData,isLoading } = useGetMyAppointmentsQuery({})
 // const schedules = data?.doctorSchedules 
-console.log(appointmentData,'appoinstment');
+// console.log(appointmentData,'appoinstment');
 const appointments = appointmentData?.appointments?.data
-console.log(appointments,"hello");
+// console.log(appointments,"hello");
 
 const meta = appointmentData?.meta
 let pageCount: number;

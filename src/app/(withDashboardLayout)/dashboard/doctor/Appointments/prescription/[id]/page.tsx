@@ -12,7 +12,6 @@ import Image from 'next/image';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 type TProps = {
-  
     params:{
         id: string;
     };

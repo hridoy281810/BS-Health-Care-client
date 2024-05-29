@@ -45,4 +45,5 @@ export type IData ={
 
 export type IAppointmentData  = {
     data: IData[];
+    id:string
 }

@@ -28,7 +28,7 @@ const router = useRouter()
     <Typography color="#ffffff">NGOS</Typography>
    {
     userInfo?.userId ? (
-      <Typography color="#ffffff" component={Link} href="/dashboard">Dashboard</Typography>
+      <Typography color="#ffffff" component={Link} href={`/dashboard/${userInfo?.role}`}>Dashboard</Typography>
     ): null
    } 
    </Stack>

@@ -20,6 +20,8 @@ export const validationSchema = z.object({
 const LoginPage = () => {
   const router = useRouter()
   const [error,setError] = useState<string>('')
+  console.log('error',error);
+  
   const handleLogin = async (values: FieldValues) => {
     try {
       const res = await userLogin(values)
@@ -36,6 +38,7 @@ const LoginPage = () => {
       }
     } catch (err) {
       console.log('something went wrong',err) 
+      toast.error('something went wrong! please check your correct password') 
     }
   }
   return (
@@ -63,7 +66,7 @@ const LoginPage = () => {
             </Box>
             <Box>
               <Typography variant='h6' fontWeight={600} >
-                Patient Register
+                Please Login!!
               </Typography>
             </Box>
           </Stack>
@@ -105,7 +108,7 @@ const LoginPage = () => {
 
               </Grid>
 
-              <Button sx={{ my: 2 }} fullWidth={true} type='submit'>Register</Button>
+              <Button sx={{ my: 2 }} fullWidth={true} type='submit'>Login</Button>
               <Typography component="p" fontWeight={300} >
                 Don't have an account? <Link href="/register" className='text-[#1586fd]'>Create an account</Link>
               </Typography>

@@ -96,11 +96,11 @@ export const generateSidebarItem = (role:TUserRole):ISidebarItem[]=>{
                         path: `${role}/appointments`,
                         icon:CalendarMonthIcon,
                     },
-                    {
-                        title:"Prescription",
-                        path: `${role}/appointments/prescription`,
-                        icon:CalendarMonthIcon,
-                    },
+                    // {
+                    //     title:"Prescription",
+                    //     path: `${role}/appointments/prescription`,
+                    //     icon:CalendarMonthIcon,
+                    // },
                     {
                         title:"My Reviews",
                         path: `${role}/reviews`,
@@ -110,6 +110,11 @@ export const generateSidebarItem = (role:TUserRole):ISidebarItem[]=>{
                 break;
             case USER_ROLE.PATIENT:
                 roleMenus.push(
+                    {
+                        title:"Dashboard",
+                        path: `${role}`,
+                        icon:DashboardIcon,
+                    },
                     {
                         title:"Appointments",
                         path: `${role}/appointments`,
@@ -125,6 +130,7 @@ export const generateSidebarItem = (role:TUserRole):ISidebarItem[]=>{
                         path: `${role}/payment-history`,
                         icon:PaymentIcon,
                     },
+                    
                     
                 )
                 break;
