@@ -10,16 +10,32 @@ import { toast } from 'sonner';
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { useDeleteScheduleMutation } from '@/redux/api/scheduleApi';
-const SchedulePage = () => {
+import useGetUserInfo from '@/hooks/useGetUserInfo';
+
+const SchedulePage =() => {
+const userInfo = useGetUserInfo()
+// console.log(userInfo);
+//   const res =  fetch(`http://localhost:5000/api/v1/doctor/${userInfo?.userId}`);
+//   const { data: doctor } =  res.json();
+//   console.log(doctor?.schedules);
+  
+  // let query: Record<string, any> = {};
+  // query['doctorId'] = id;
+  //  const { data, isLoading } = useGetAllDoctorSchedulesQuery({ ...query });
+  //  console.log(data?.doctorSchedules,'main data');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const id = userInfo?.userId
   const query:Record<string,any> = {}
   const [page,setPage] = useState(1)
 const [limit,setLimit] = useState(4)
 query['page'] = page
 query['limit'] = limit
   const [allSchedule,setAllSchedule] = useState<any>([])
+
 const {data,isLoading } = useGetAllDoctorSchedulesQuery({...query})
-const [deleteSchedule]  = useDeleteScheduleMutation()
+const [deleteSchedule]  =useDeleteScheduleMutation()
+const [deleteDoctorSchedule]  =useDeleteDoctorScheduleMutation()
+
 const schedules = data?.doctorSchedules 
 const meta = data?.meta
 let pageCount: number;
@@ -30,9 +46,8 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
   setPage(value);
 };
   useEffect(()=>{
-    const updateData = schedules?.map((schedule:any)=> {
+    const updateData = (data?.doctorSchedules as any[])?.map((schedule:any)=> {
       return {
-        // sl: idx + 1,
         id:schedule.scheduleId,
         startDate: dateFormatter(schedule?.schedule?.startDate),
         endDate: dateFormatter(schedule?.schedule?.endDate),
@@ -44,15 +59,14 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
       },[schedules])
 
   const columns: GridColDef[] = [
-    // { field: 'sl', headerName: 'SL', flex:1},
     { field: 'startDate', headerName: 'Date', flex:1},
     { field: 'startTime', headerName: 'Start Time', flex:1},
     { field: 'endTime', headerName: 'End Time', flex:1},
     { field: 'id', headerName: 'Action', flex:1,headerAlign:"center",align:"center", renderCell:({row})=>{
-      // console.log(row);
+      console.log(row);
   const handleDelete = async(id:string)=>{    
    try{
-      const res = await deleteSchedule(id).unwrap();
+      const res = await deleteDoctorSchedule(id).unwrap();
       console.log(res);
       
      if(res?.id){
@@ -63,7 +77,6 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
    } 
     
   }
-
       return (
  <Box>
       <IconButton onClick={()=>handleDelete(row?.id)} aria-label='delete'>

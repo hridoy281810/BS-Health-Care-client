@@ -1,5 +1,5 @@
 "use client"
-import useGetUsrInfo from '@/hooks/useGetUsrInfo';
+import useGetUsrInfo from '@/hooks/useGetUserInfo';
 import { logoutUser } from '@/services/actions/logoutUser';
 import { Box,Button,Container, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
