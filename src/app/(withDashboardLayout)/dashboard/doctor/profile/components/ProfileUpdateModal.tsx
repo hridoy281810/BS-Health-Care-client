@@ -11,6 +11,7 @@ import { useGetSpecialtyQuery } from "@/redux/api/specialtiesApi";
 import { useEffect, useState } from "react";
 import {  z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { getUsrInfo } from "@/services/actions/auth.service";
 type TProps = {
    open: boolean;
    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -36,7 +37,12 @@ const validationSchema = z.object({
 });
 
 const ProfileUpdateModal = ({open,setOpen,id}:TProps) => {
+   const userInfo =getUsrInfo()
+   console.log(userInfo);
+   
 const { data: doctorData, refetch, isSuccess } = useGetSingleDoctorQuery(id)
+ console.log(doctorData);
+ 
 const {data:allSpecialties} = useGetSpecialtyQuery(undefined)
 const [selectedIds,setSelectedIds] = useState([])
 const [updateDoctor,{isLoading:updating}] = useUpdateDoctorMutation()
