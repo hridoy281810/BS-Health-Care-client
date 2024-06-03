@@ -16,7 +16,7 @@ const VideoCall = ({videoCallingId}:{videoCallingId:string}) => {
     const callbacks = {
         EndCall:()=> {
             setVideoCall(false);
-            router.push('/dashboard');
+            router.push(`/dashboard/doctor/appointments`);
         }
     }
     return videoCall ? (

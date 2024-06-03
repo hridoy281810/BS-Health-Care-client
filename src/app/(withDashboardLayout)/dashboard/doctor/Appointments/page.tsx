@@ -8,8 +8,8 @@ import { getTimeIn12HourFormat } from '../../doctor/schedule/components/Multiple
 import Link from 'next/link';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import BsChip from '@/components/shared/BsChips/BsChip';
+import MedicationIcon from '@mui/icons-material/Medication';
 const AppointmentsPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const query:Record<string,any> = {}
   const [page,setPage] = useState(1)
 const [limit,setLimit] = useState(4)
@@ -62,7 +62,7 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     align:"center",
     renderCell: ({row})=>{
       return(
-         <IconButton component={Link} href={`/video?videoCallingId=${row?.videoCallingId}`}
+         <IconButton    component={Link} href={`/video?videoCallingId=${row?.videoCallingId}`}
         disabled={row?.paymentStatus === "UNPAID"}>
         <VideocamIcon  sx={{
           color: row?.paymentStatus === 'PAID' ? "primary.main": ""
@@ -71,7 +71,22 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
       )
     }
   },
-    
+  { field: 'prescription', headerName: 'Prescription', flex:1,  headerAlign:"center",
+  align:"center",
+  renderCell: ({row})=>{
+    return(
+      <>
+       <IconButton LinkComponent={Link} href={`/dashboard/doctor/appointments/prescription/${row?.id}`} disabled={row?.paymentStatus === "UNPAID"}>
+            <MedicationIcon  sx={{
+        color: row?.paymentStatus === 'PAID' ? "primary.main": ""
+      }}/>
+       </IconButton>
+        
+      </>
+
+    )
+  }
+},
   ];
   return (
     <Box>
@@ -93,7 +108,7 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
           }
         }}
       />
-   </Box>
+    </Box>
   ) : (<h1>Loading....</h1>)}
     </Box>
     </Box>

@@ -65,7 +65,9 @@ const ForgotPasswordPage = () => {
                  <KeyIcon sx={{ color: 'primary.main' }} />
               </Box>
               <Typography variant='h5' fontWeight={600} sx={{ mb: 2, mt: -1.5 }}>
-                 Change password
+                 Change password enqueue
+               enque,de,front reacr peek
+               
               </Typography>
            </Stack>
            {

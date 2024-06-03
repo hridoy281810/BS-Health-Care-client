@@ -6,7 +6,7 @@ export interface DoctorSchedule {
     updatedAt: string;
     appointmentId: string | null;
     doctor: Doctor;
-    Schedule: Schedule;
+    schedule: Schedule;
   }
   
   export interface Doctor {

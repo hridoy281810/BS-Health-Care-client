@@ -17,7 +17,7 @@ const {data:myInfo}= useGetSingleUserQuery({})
    
        <Box sx={{ minWidth: 275 }}>
 {review!?.length > 0 ? 
-  <Grid container spacing={2} sx={{my:5}}>
+  <Grid container spacing={2} sx={{my:1}}>
     {
           myReviewData?.schedules?.map((review)=> (
             <Grid item xs={12} sm={12} md={4} >

@@ -13,7 +13,10 @@ import { getUsrInfo } from '@/services/actions/auth.service';
     const [userRole,setUserRole] = useState('')
     useEffect(()=>{
       const userInfo = getUsrInfo();
-      if (userInfo && userInfo.role) {
+      if (!userInfo && !userInfo.role) {
+       <p>Loading....</p>
+      }
+      else if (userInfo && userInfo.role) {
         setUserRole(userInfo.role);
       }
     },[])
