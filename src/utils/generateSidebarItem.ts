@@ -21,7 +21,7 @@ export const generateSidebarItem = (role:TUserRole):ISidebarItem[]=>{
         },
         {
             title: "Change Password",
-            path: 'change-password',
+            path: `change-password`,
             icon: KeyIcon 
         },
     ]

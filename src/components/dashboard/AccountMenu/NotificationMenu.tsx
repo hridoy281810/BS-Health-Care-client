@@ -4,10 +4,10 @@ import {Box, Divider, IconButton,  Menu, MenuItem, MenuProps, Tooltip, Typograph
 import Badge from '@mui/material/Badge';
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { logoutUser } from "@/services/actions/logoutUser";
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { useGetALlMetaQuery } from "@/redux/api/userApi";
 import dayjs from "dayjs";
+import useGetUserRole from "@/hooks/useGetUserRole";
 const StyledBadge = styled(Badge)(({ theme }) => ({
     '& .MuiBadge-badge': {
       backgroundColor: '#44b700',
@@ -50,6 +50,7 @@ const StyledMenu = styled((props: MenuProps) => (
       {...props}
     />
   ))(({ theme }) => ({
+
     '& .MuiPaper-root': {
       borderRadius: 6,
       marginTop: theme.spacing(1),
@@ -81,29 +82,26 @@ const StyledMenu = styled((props: MenuProps) => (
     date: Date;
   }
 const NotificationMenu = () => {
+    const role = useGetUserRole()
     const {data,isLoading} = useGetALlMetaQuery({})
-    console.log(data?.meta);
     const currentCount = data?.meta
    const [anchorEl,setAnchorEl] = useState<null | HTMLElement>(null)
    const [messages, setMessages] = useState<Notification[]>([]);
-   const prevCounts = useRef({ appointmentCount: 0, paymentCount: 0, doctorCount: 0, patientCount: 0 });
+   const prevCounts = useRef({ appointmentCount: 0, paymentCount: 0, doctorCount: 0, patientCount: 0,reviewCount:0   });
  
    const generateMessages = (prev: typeof prevCounts.current, current: typeof prevCounts.current): Notification[] => {
      const newMessages: Notification[] = [];
      const now = new Date();
-     
      if (current.appointmentCount > prev.appointmentCount) {
        newMessages.push({ message: "One new appointment added", date: now });
      } else if (current.appointmentCount < prev.appointmentCount) {
        newMessages.push({ message: "One appointment deleted", date: now });
      }
- 
      if (current.paymentCount > prev.paymentCount) {
        newMessages.push({ message: "One new payment added", date: now });
      } else if (current.paymentCount < prev.paymentCount) {
        newMessages.push({ message: "One payment deleted", date: now });
      }
- 
      if (current.doctorCount > prev.doctorCount) {
        newMessages.push({ message: "One new doctor added", date: now });
      } else if (current.doctorCount < prev.doctorCount) {
@@ -114,6 +112,11 @@ const NotificationMenu = () => {
        newMessages.push({ message: "One new patient added", date: now });
      } else if (current.patientCount < prev.patientCount) {
        newMessages.push({ message: "One patient deleted", date: now });
+     }
+     if (current.reviewCount > prev.reviewCount) {
+       newMessages.push({ message: "One new patient review added", date: now });
+     } else if (current.reviewCount < prev.reviewCount) {
+       newMessages.push({ message: "One patient review deleted", date: now });
      }
  
      return newMessages;
@@ -126,6 +129,7 @@ const NotificationMenu = () => {
          paymentCount: data.meta.paymentCount,
          doctorCount: data.meta.doctorCount,
          patientCount: data.meta.patientCount,
+         reviewCount: data.meta.reviewCount ?? 0,
        };
  
        const newMessages = generateMessages(prevCounts.current, currentCounts);
@@ -152,7 +156,7 @@ const NotificationMenu = () => {
   return (
     <React.Fragment>
       <Box sx={{display:"flex", alignItems:"center", textAlign:"center"}}>
-     <Tooltip title="Account settings" 
+     <Tooltip title="Notification" 
      componentsProps={{
         tooltip:{
             sx:{
@@ -188,6 +192,9 @@ const NotificationMenu = () => {
       }}
       transformOrigin={{horizontal:"center", vertical:"top"}}
       anchorOrigin={{horizontal:"center", vertical:"bottom"}}
+      sx={{
+        paddingBottom: 2
+      }}
       >
    {messages.length > 0 ? (
           <React.Fragment>
@@ -198,7 +205,7 @@ const NotificationMenu = () => {
                 </MenuItem>
                 {todayMessages.map((message, index) => (
                 <>
-                <Link href="/dashboard/admin">
+                <Link href={`/dashboard/${role}`}>
                   <MenuItem key={index}>
                      <StyledBadge
         overlap="circular"
@@ -226,7 +233,7 @@ const NotificationMenu = () => {
                 </MenuItem>
                 {olderMessages.map((message, index) => (
                <>
-               <Link href="/dashboard/admin">
+               <Link href={`/dashboard/${role}`}>
                <MenuItem key={index}>
                     <Typography sx={{
         color:'#808080',
@@ -250,7 +257,7 @@ const NotificationMenu = () => {
         )}
   
         <Divider />
-    
+    <Typography></Typography>
       </Menu>
     </React.Fragment>
   );

@@ -13,6 +13,7 @@ import BSInput from '@/components/Forms/BSInput';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
+import useGetUserInfo from '@/hooks/useGetUserInfo';
 export const validationSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
   password: z.string().min(6, "Must be at least 6 characters")
@@ -20,16 +21,16 @@ export const validationSchema = z.object({
 const LoginPage = () => {
   const router = useRouter()
   const [error,setError] = useState<string>('')
-  console.log('error',error);
+  const userInfo = useGetUserInfo()
+  console.log(userInfo?.data);
   
   const handleLogin = async (values: FieldValues) => {
     try {
       const res = await userLogin(values)
-      console.log('res',res);
+      console.log('res',res.data.needPasswordChange);
       if (res.data) {
         toast.success(res.message)
         storeUserInfo({ accessToken: res?.data?.accessToken })
-        router.push("/dashboard")
       }
        else{
         const errorMassage = res.message

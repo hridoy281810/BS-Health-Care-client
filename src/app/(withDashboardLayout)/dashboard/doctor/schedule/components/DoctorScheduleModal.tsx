@@ -28,9 +28,8 @@ const DoctorScheduleModal = ({open,setOpen}:TProps) => {
 const [createDoctorSchedule, {isLoading}] = useCreateDoctorScheduleMutation()
     const onSubmit = async(value:FieldValues)=>{
         try{
-        const res = await createDoctorSchedule({scheduleIds:selectedScheduleIdes}).unwrap()
-        console.log(res,'doctor sedule');
-           if(res?.success === true ){
+        const res = await createDoctorSchedule({scheduleIds:selectedScheduleIdes})
+           if(res){
             setOpen(false)
            }
         }catch(error:any){

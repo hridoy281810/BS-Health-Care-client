@@ -4,8 +4,8 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 type Role = keyof typeof roleBasePrivateRoutes;
 const AuthRoutes = ['/login','/register']
-//  const commonPrivateRoutes = ["/dashboard", "/dashboard/change-password","doctors"];
- const commonPrivateRoutes = ["/dashboard","doctors"];
+ const commonPrivateRoutes = ["/dashboard", "/dashboard/change-password","doctors"];
+//  const commonPrivateRoutes = ["/dashboard","doctors"];
  const roleBasePrivateRoutes = {
     PATIENT: [/^\/dashboard\/patient/],
     DOCTOR: [/^\/dashboard\/doctor/], 
