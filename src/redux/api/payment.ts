@@ -1,4 +1,5 @@
 
+import { IMeta } from "@/types";
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
@@ -11,6 +12,21 @@ export const appointmentApi = baseApi.injectEndpoints({
       }),
       invalidatesTags:[tagTypes.payment]
     }),
+    getPayments:build.query({
+      query:()=>{
+        return {
+          url: "payment/ipn",
+          method: "GET",
+      }
+      },
+      transformResponse: (response,meta: IMeta)=>{
+          return{
+            payment:response,
+              meta
+          }
+      } ,
+      providesTags:[tagTypes.prescription]
+    }),
 })
 })
-export const {useInitialPaymentMutation} = appointmentApi
+export const {useInitialPaymentMutation,useGetPaymentsQuery} = appointmentApi

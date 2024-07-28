@@ -1,7 +1,7 @@
 
 import { baseApi } from '@/redux/api/baseApi';
 import { tagTypes } from '../tag-types';
-import { IDoctor, IMeta } from '@/types';
+import { IDoctor, IMeta,  IRoleBaseMetaData } from '@/types';
 
 const userApi = baseApi.injectEndpoints({
       endpoints:(build)=>({
@@ -30,13 +30,17 @@ const userApi = baseApi.injectEndpoints({
       }),
       changePassword: build.mutation({
         query: (data) => ({
-           url: "/auth/change-password",
-           method: 'POST',
-           contentType: 'application/json',
-           data: data,
+          url: "/auth/change-password",
+          method: 'POST',
+          contentType: 'application/json',
+        data,
         }),
+        transformResponse: (response) => {
+          console.log('transformResponse', response); 
+          return { data: response };
+        },
         invalidatesTags: [tagTypes.user],
-     }),
+      }),
       forgotPassword: build.mutation({
         query: (data) => ({
            url: "/auth/forgot-password",
@@ -63,8 +67,20 @@ const userApi = baseApi.injectEndpoints({
         }),
         invalidatesTags:[tagTypes.user]
       }),
-      
+      getALlMeta:build.query({
+        query:()=>({
+            url: "/metadata",
+            method: "GET"
+        }),
+        transformResponse: (response: IRoleBaseMetaData)=>{
+            return{
+                meta:response,
+            }
+        },
+        
+        providesTags:[tagTypes.meta]
+      }),
       }),
 })
 
-export const {useGetSingleUserQuery,useUpdateProfileMutation,useChangePasswordMutation,useForgotPasswordMutation,useResetPasswordMutation} = userApi;
+export const {useGetSingleUserQuery,useUpdateProfileMutation,useChangePasswordMutation,useForgotPasswordMutation,useResetPasswordMutation,useGetALlMetaQuery} = userApi;

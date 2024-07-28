@@ -1,4 +1,5 @@
 
+import { IAppointmentData } from "@/types/appointment";
 import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 import { IMeta } from "@/types";
@@ -21,7 +22,7 @@ export const reviewApi = baseApi.injectEndpoints({
           params:arg
       }
       },
-      transformResponse: (response: [],meta: IMeta)=>{
+      transformResponse: (response:IAppointmentData[],meta: IMeta)=>{
           return{
             schedules:response,
               meta

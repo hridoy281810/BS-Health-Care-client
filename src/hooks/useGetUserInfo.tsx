@@ -4,7 +4,7 @@ import { decodedToken } from '@/utils/jwt';
 import { getToLocalStorage } from '@/utils/local-storage';
 import { JwtPayload } from 'jwt-decode';
 
-const useGetUsrInfo = () => {
+const useGetUserInfo = () => {
   const [userInfo,setUserInfo] = useState<any | string>('')
   useEffect(()=> {
     const fetchUserInfo = ()=>{
@@ -27,4 +27,4 @@ const useGetUsrInfo = () => {
   return userInfo
 };
 
-export default useGetUsrInfo;
+export default useGetUserInfo;

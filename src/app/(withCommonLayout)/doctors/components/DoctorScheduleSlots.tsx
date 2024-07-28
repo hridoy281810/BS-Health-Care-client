@@ -16,21 +16,23 @@ const DoctorScheduleSlots = ({id}:{id:string}) => {
   const [scheduleId, setScheduleId] = useState('');
   let query: Record<string, any> = {};
   query['doctorId'] = id;
-  query['startDate'] = dayjs(new Date())
-     .utc()
-     .hour(0)
-     .minute(0)
-     .second(0)
-     .millisecond(0)
-     .toISOString();
-  query['endDate'] = dayjs(new Date())
-     .utc()
-     .hour(23)
-     .minute(59)
-     .second(59)
-     .millisecond(999)
-     .toISOString();
-   const { data, isLoading } = useGetAllDoctorSchedulesQuery({ query });
+//   query['startDate'] = dayjs(new Date())
+//      .utc()
+//      .hour(0)
+//      .minute(0)
+//      .second(0)
+//      .millisecond(0)
+//      .toISOString();
+//   query['endDate'] = dayjs(new Date())
+//      .utc()
+//      .hour(23)
+//      .minute(59)
+//      .second(59)
+//      .millisecond(999)
+//      .toISOString();
+   const { data, isLoading } = useGetAllDoctorSchedulesQuery({ ...query });
+   console.log(data?.doctorSchedules,'main data');
+   
   const currentDate = new Date();
   const today = currentDate.toLocaleDateString('en-US', { weekday: 'long' });
   const [createAppointment] = useCreateAppointmentMutation()
@@ -49,6 +51,8 @@ const DoctorScheduleSlots = ({id}:{id:string}) => {
    }catch(error){
   };}
   const [availableSlots, setAvailableSlots] = useState<DoctorSchedule[]>([]);
+  console.log(availableSlots,'slot data');
+  
   useEffect(() => {
     if (data && Array.isArray(data.doctorSchedules)) {
       const filteredSchedules:DoctorSchedule[] = data?.doctorSchedules?.filter((schedule: DoctorSchedule) => !schedule.isBooked);
@@ -74,7 +78,7 @@ const DoctorScheduleSlots = ({id}:{id:string}) => {
              isLoading ? (
                 'Loading...'
              ) : (
-                availableSlots?.map((doctorSchedule: DoctorSchedule) => {
+                availableSlots?.map((doctorSchedule:DoctorSchedule) => {
                    const formattedTimeSlot = `${getTimeIn12HourFormat(
                       doctorSchedule?.schedule?.startDate
                    )} - ${getTimeIn12HourFormat(

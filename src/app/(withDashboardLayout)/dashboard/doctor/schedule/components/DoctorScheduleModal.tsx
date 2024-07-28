@@ -10,7 +10,6 @@ import {  Stack } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { useCreateDoctorScheduleMutation } from '@/redux/api/doctorScheduleApi';
 import { FieldValues } from 'react-hook-form';
-
 type TProps = {
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -19,8 +18,6 @@ const DoctorScheduleModal = ({open,setOpen}:TProps) => {
     const [selectedDate, setSelectedDate] = useState(dayjs(new Date()).toISOString());
     // console.log(selectedDate);
     const [selectedScheduleIdes,setSelectedScheduleIdes] = useState<string[]>([])
-    console.log(selectedScheduleIdes);
-    
     const query:Record<string,any> = {}
     if(!!selectedDate){
         query["startDate"] = dayjs(selectedDate).hour(0).minute(0).millisecond(0).toISOString()
@@ -28,20 +25,15 @@ const DoctorScheduleModal = ({open,setOpen}:TProps) => {
     }
     const {data} = useGetAllSchedulesQuery(query)
     const schedules = data?.schedules
-    // console.log(schedules);
 const [createDoctorSchedule, {isLoading}] = useCreateDoctorScheduleMutation()
-
     const onSubmit = async(value:FieldValues)=>{
-
         try{
-        const res = await createDoctorSchedule({scheduleIds:selectedScheduleIdes}).unwrap()
-        console.log(res,'doctor sedule');
-           if(res?.success === true ){
+        const res = await createDoctorSchedule({scheduleIds:selectedScheduleIdes})
+           if(res){
             setOpen(false)
            }
         }catch(error:any){
 console.log(error.message);
-
         }
     }
   return (
@@ -62,7 +54,6 @@ console.log(error.message);
           loading={isLoading}
           loadingIndicator="Submitting..."
           variant="contained"
-         
         >
           <span typeof='submit'>Submit</span>
         </LoadingButton>
@@ -70,5 +61,4 @@ console.log(error.message);
     </BSModal>
   );
 };
-
 export default DoctorScheduleModal;

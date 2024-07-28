@@ -1,16 +1,25 @@
 "use client"
-import useGetUsrInfo from '@/hooks/useGetUsrInfo';
+import useGetUsrInfo from '@/hooks/useGetUserInfo';
 import { logoutUser } from '@/services/actions/logoutUser';
 import { Box,Button,Container, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
-const userInfo = useGetUsrInfo()
 const router = useRouter()
-  const handleLogOut = ()=>{
-    logoutUser(router)
-  }
+const initialUserInfo = useGetUsrInfo();
+const [userInfo, setUserInfo] = useState(initialUserInfo);
+console.log(userInfo);
+
+useEffect(() => {
+  setUserInfo(initialUserInfo);
+}, [initialUserInfo]);
+
+const handleLogOut = async () => {
+  await logoutUser(router);
+  setUserInfo(null); // Update local state after logout
+};
   return (
  <Box sx={{
   backgroundColor:"primary.main" 
@@ -28,7 +37,7 @@ const router = useRouter()
     <Typography color="#ffffff">NGOS</Typography>
    {
     userInfo?.userId ? (
-      <Typography color="#ffffff" component={Link} href="/dashboard">Dashboard</Typography>
+      <Typography color="#ffffff" component={Link} href={`/dashboard/${userInfo?.role}`}>Dashboard</Typography>
     ): null
    } 
    </Stack>

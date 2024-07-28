@@ -5,14 +5,13 @@ import Box from '@mui/material/Box';
 import { Card, Grid, Typography } from '@mui/material';
 import ReviewCard from '../../doctor/reviews/components/ReviewCard';
 const MyReviewPage = () => {
-    const {data:myReviewData} = useGetAllReviewsQuery()
+    const {data:myReviewData} = useGetAllReviewsQuery({})
     const review = myReviewData?.schedules
     console.log(myReviewData,'hello');
     return (
-   
        <Box sx={{ minWidth: 275 }}>
 {review!?.length > 0 ? 
-  <Grid container spacing={2} sx={{my:5}}>
+  <Grid container spacing={2} sx={{my:1}}>
     {
           myReviewData?.schedules?.map((review)=> (
             <Grid item xs={12} sm={12} md={4} >
@@ -23,7 +22,7 @@ const MyReviewPage = () => {
           ))
          }
      {
-          myReviewData?.schedules?.map((review)=> (
+        myReviewData?.schedules?.map((review)=> (
             <Grid item xs={12} sm={12} md={4} >
             <Card key={review?.id as string}  variant="outlined">
              <ReviewCard review={review} />

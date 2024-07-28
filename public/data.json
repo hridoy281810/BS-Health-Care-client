@@ -1,0 +1,17 @@
+[
+    {
+        "id": "fc8b9741-c27e-495c-ac33-92e28d791ab7",
+        "depositType": "E-Transfer",
+        "date": "2024-07-15T05:39:09.197Z",
+        "amount": 20000,
+        "status": "Accepted",
+        "image": "https://ssl-media-dev.s3.amazonaws.com/deposit/Screenshot-from-2024-06-28-22-57-40-2024-07-15T05:39:48.818Z.png",
+        "checkNo": "1234",
+        "ownAccountNo": "12345tsdfg",
+        "bankName": "sdfg",
+        "createdAt": "2024-07-14T23:39:52.339Z",
+        "updatedAt": "2024-07-14T23:39:52.339Z",
+        "investorName": "Investor A"
+      }
+]
+    

@@ -33,6 +33,8 @@ const DoctorsProfilePage = async ({ params }: PropTypes) => {
     const foundSpecialty = specialtiesData.find((s: any) => s.id === specialty.specialtiesId);
     return foundSpecialty ? { ...foundSpecialty } : null;
 }).filter((s: any) => s !== null);
+console.log(sortedSpecialties);
+
    return (
       <Container>
          <Box my={5}>

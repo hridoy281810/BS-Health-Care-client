@@ -36,7 +36,6 @@ const scheduleApi = baseApi.injectEndpoints({
           return {
             url: `/schedule/${id}`,
             method: "DELETE",
-         
         }
         },
         invalidatesTags:[tagTypes.schedule]

@@ -5,6 +5,7 @@ import setAccessToken from "./setAccessToken"
 import { jwtDecode } from "jwt-decode"
 
 export const userLogin = async(userData:FieldValues)=>{
+ 
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API_URL}/auth/login`,{
         method:"POST",
         headers:{
@@ -14,7 +15,9 @@ export const userLogin = async(userData:FieldValues)=>{
         // cache:"no-store"
         credentials: "include",
     })
+
     const userInfo = await res.json()
+    console.log(userInfo,'functional user info======')
     const passwordChangeRequired = userInfo?.data?.needPasswordChange;
     const accessToken = userInfo?.data?.accessToken
     let decodedUser = null;
@@ -22,12 +25,16 @@ export const userLogin = async(userData:FieldValues)=>{
          decodedUser = jwtDecode(accessToken) as any
      }
      const role = decodedUser?.role;
-    if(userInfo.data.accessToken){
+     const redirectPath = passwordChangeRequired === true ? "/dashboard/change-password"
+     : "/";
+
+    if(accessToken){
       setAccessToken(userInfo.data.accessToken,{
-        redirect:"/dashboard",
+        redirect:redirectPath,
         passwordChangeRequired,
         role
       })
     }
+
     return userInfo
 }

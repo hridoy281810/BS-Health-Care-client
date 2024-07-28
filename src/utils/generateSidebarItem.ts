@@ -21,7 +21,7 @@ export const generateSidebarItem = (role:TUserRole):ISidebarItem[]=>{
         },
         {
             title: "Change Password",
-            path: 'change-password',
+            path: `change-password`,
             icon: KeyIcon 
         },
     ]
@@ -68,6 +68,11 @@ export const generateSidebarItem = (role:TUserRole):ISidebarItem[]=>{
                         icon:CalendarMonthIcon,
                     },
                     {
+                        title:"Prescriptions",
+                        path: `${role}/prescriptions`,
+                        icon:NoteIcon,
+                    },
+                    {
                         title:"Reviews",
                         path: `${role}/reviews`,
                         icon:ReviewsIcon,
@@ -91,6 +96,11 @@ export const generateSidebarItem = (role:TUserRole):ISidebarItem[]=>{
                         path: `${role}/appointments`,
                         icon:CalendarMonthIcon,
                     },
+                    // {
+                    //     title:"Prescription",
+                    //     path: `${role}/appointments/prescription`,
+                    //     icon:CalendarMonthIcon,
+                    // },
                     {
                         title:"My Reviews",
                         path: `${role}/reviews`,
@@ -100,6 +110,11 @@ export const generateSidebarItem = (role:TUserRole):ISidebarItem[]=>{
                 break;
             case USER_ROLE.PATIENT:
                 roleMenus.push(
+                    {
+                        title:"Dashboard",
+                        path: `${role}`,
+                        icon:DashboardIcon,
+                    },
                     {
                         title:"Appointments",
                         path: `${role}/appointments`,
@@ -115,6 +130,7 @@ export const generateSidebarItem = (role:TUserRole):ISidebarItem[]=>{
                         path: `${role}/payment-history`,
                         icon:PaymentIcon,
                     },
+                    
                     
                 )
                 break;

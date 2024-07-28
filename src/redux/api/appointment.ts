@@ -14,21 +14,28 @@ export const appointmentApi = baseApi.injectEndpoints({
       }),
       invalidatesTags:[tagTypes.appointment]
     }),
-    getAllSchedules:build.query({
-      query:(arg:Record<string,any>)=>{
+    createPrescription:build.mutation({
+      query:(data)=>({
+          url: "/prescription",
+          method: "POST",
+          data,
+      }),
+      invalidatesTags:[tagTypes.prescription]
+    }),
+    getAllAppointments:build.query({
+      query:()=>{
         return {
           url: "/appointment",
           method: "GET",
-          params:arg
       }
       },
       transformResponse: (response: IAppointmentData[],meta: IMeta)=>{
           return{
-            schedules:response,
+            appointment:response,
               meta
           }
       } ,
-      providesTags:[tagTypes.schedule]
+      providesTags:[tagTypes.appointment]
     }),
     getMyAppointments: build.query({
         query: (arg: Record<string, any>) => {
@@ -38,7 +45,7 @@ export const appointmentApi = baseApi.injectEndpoints({
             params: arg,
           };
         },
-        transformResponse: (response: IAppointmentData[], meta: IMeta) => {
+        transformResponse: (response: IAppointmentData, meta: IMeta) => {
           console.log(response)
           return {
             appointments: response,
@@ -60,4 +67,4 @@ export const appointmentApi = baseApi.injectEndpoints({
     }),
     }),
 })
-export const {useCreateAppointmentMutation,useGetMyAppointmentsQuery} = appointmentApi
+export const {useCreateAppointmentMutation,useGetMyAppointmentsQuery,useCreatePrescriptionMutation,useGetAllAppointmentsQuery} = appointmentApi

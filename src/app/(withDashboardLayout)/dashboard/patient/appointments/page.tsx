@@ -9,6 +9,7 @@ import Link from 'next/link';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import BsChip from '@/components/shared/BsChips/BsChip';import ReviewModal from './components/ReviewModal';
 import RateReviewIcon from '@mui/icons-material/RateReview';
+import { useGetALlMetaQuery } from '@/redux/api/userApi';
 const AppointmentsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const query:Record<string,any> = {}
@@ -16,11 +17,15 @@ const AppointmentsPage = () => {
 const [limit,setLimit] = useState(4)
 query['page'] = page
 query['limit'] = limit
+const {data:metaData } = useGetALlMetaQuery({})
+console.log(metaData,'metaData');
 
 const {data:appointmentData,isLoading } = useGetMyAppointmentsQuery({})
 // const schedules = data?.doctorSchedules 
-console.log(appointmentData,'appoinstment');
+// console.log(appointmentData,'appoinstment');
 const appointments = appointmentData?.appointments?.data
+// console.log(appointments,"hello");
+
 const meta = appointmentData?.meta
 let pageCount: number;
 if(meta?.total){
@@ -33,13 +38,13 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
   const columns: GridColDef[] = [
     { field: 'name', headerName: 'Doctor Name', flex:1,
       renderCell:({row})=> {
-        return row.doctor.name
+        return row?.doctor?.name
       }
     },
     { field: 'appointmentDate', headerName: 'Appointment Date', flex:1,  headerAlign:"center",
     align:"center",
       renderCell:({row})=> {
-        return dateFormatter(row?.schedule.startDate)
+        return dateFormatter(row?.schedule?.startDate)
       }
     },
     { field: 'appointmentTime', headerName: 'Appointment Time', flex:1,  headerAlign:"center",
@@ -52,8 +57,8 @@ const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     align:"center",
   renderCell: ({row})=>{
      return (
-      row.paymentStatus === "PAID" ?  <BsChip label={row.paymentStatus}  type='success' variant="outlined" />:
-      <BsChip  label={row.paymentStatus} type="error" variant="outlined" />
+      row?.paymentStatus === "PAID" ?  <BsChip label={row?.paymentStatus}  type='success' variant="outlined" />:
+      <BsChip  label={row?.paymentStatus} type="error" variant="outlined" />
      )
   }
   },
